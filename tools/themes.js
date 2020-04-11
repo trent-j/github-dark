@@ -29,7 +29,7 @@ async function main() {
   let paths = await glob(join(__dirname, "..", "themes", "**", "*.min.css"));
   await Promise.all(paths.map(path => unlink(path)));
 
-  paths = await glob(join(__dirname, "..", "themes", "src", "*", "*.css"));
+  paths = await glob([join(__dirname, "..", "themes", "src", "**", "*.css"), join("!**", "_template**")]);
   await Promise.all(paths.map(async path => {
     const newPath = path.replace(/[/\\]src[/\\]/, "/").replace(/\.css$/, ".min.css");
     let css = await readFile(path, "utf8");
